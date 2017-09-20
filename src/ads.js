@@ -89,7 +89,7 @@ export default class ThePlatformAdsTracker extends nrvideo.Tracker {
   }
 
   onMediaPlaying (e) {
-    if (this.state.isStarted) { // ads
+    if (this.state.isRequested) { // ads
       this.playhead = e.data.currentTimeAggregate || e.data.currentTime
       this.sendStart()
     }
