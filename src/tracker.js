@@ -2,7 +2,7 @@ import * as nrvideo from 'newrelic-video-core'
 import {version} from '../package.json'
 import ThePlatformAdsTracker from './ads'
 
-export default class ThePlatformTracker extends nrvideo.Tracker {
+export default class ThePlatformTracker extends nrvideo.VideoTracker {
   constructor (player, options) {
     super(player, options)
     this.scope = options ? options.scope : undefined
