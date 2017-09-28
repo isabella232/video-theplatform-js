@@ -2,18 +2,23 @@
 
 ## Unreleased
 
-## [0.1.2] - 2017/09/26
-### Fixed
-- Fixed `AD_ERROR` and `AD_END` not being sent when an adError occurs.
+## [0.1.2] - 2017/09/28
+### Fix
+- Fix `adTtile` not being fetch for Freewheel ads.
+- Fix `sample.html` file to include ad plugins.
 
-### Added
-- Added adTitle additional check in `AD_START`.
+## [0.1.2] - 2017/09/26
+### Fix
+- Fix `AD_ERROR` and `AD_END` not being sent when an adError occurs.
+
+### Add
+- Add `adTitle` additional check in `AD_START`.
 
 
 ## [0.1.1] - 2017/09/20
-### Fixed
-- Fixed `AD_ERROR` not being fired if the ad has not started.
-- Fixed `AD_START` not being sent.
+### Fix
+- Fix `AD_ERROR` not being fired if the ad has not started.
+- Fix `AD_START` not being sent.
 
 ## [0.1.0] - 
 - First Version
