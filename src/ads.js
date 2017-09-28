@@ -67,7 +67,7 @@ export default class ThePlatformAdsTracker extends nrvideo.VideoTracker {
       this.duration = e.data.baseClip.releaseLength
       this.bitrate = e.data.baseClip.bitrate
       this.src = e.data.baseClip.URL
-      this.title = e.data.title
+      this.title = e.data.baseClip.title || e.data.title
       if (e.data.baseClip.isMid) {
         this.position = nrvideo.Constants.AdPositions.MID
       } else {
@@ -82,7 +82,7 @@ export default class ThePlatformAdsTracker extends nrvideo.VideoTracker {
       this.duration = e.data.baseClip.releaseLength
       this.bitrate = e.data.baseClip.bitrate
       this.src = e.data.baseClip.URL
-      this.title = e.data.baseClip.title
+      this.title = e.data.baseClip.title || e.data.title
       if (e.data.baseClip.isMid) {
         this.position = nrvideo.Constants.AdPositions.MID
       } else {

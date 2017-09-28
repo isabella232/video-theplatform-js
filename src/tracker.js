@@ -88,7 +88,8 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
     this.player.addEventListener('OnReleaseStart', this.onReleaseStart.bind(this), this.scope)
     this.player.addEventListener('OnReleaseEnd', this.onReleaseEnd.bind(this), this.scope)
     this.player.addEventListener('OnMediaLoadStart', this.onMediaLoadStart.bind(this), this.scope)
-    this.player.addEventListener('OnRenditionSwitched', this.onRenditionSwitched.bind(this), this.scope)
+    this.player.addEventListener('OnRenditionSwitched', this.onRenditionSwitched.bind(this),
+      this.scope)
     this.player.addEventListener('OnMediaPlaying', this.onMediaPlaying.bind(this), this.scope)
     this.player.addEventListener('OnMediaPause', this.onMediaPause.bind(this), this.scope)
     this.player.addEventListener('OnMediaUnpause', this.onMediaUnpause.bind(this), this.scope)
@@ -169,7 +170,7 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
       this.title = e.data.clip.title
       this.duration = e.data.clip.mediaLength
       this.sendError({ errorMessage: e.data.friendlyMessage, errorDetail: e.data.message })
-    } else {
+    } else { // Ad
       this.sendStart()
     }
   }
