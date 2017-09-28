@@ -45,4 +45,4 @@ Due to the information exposed by player provider, this tracker may not be able 
 - `AD_QUARTILE`.
 - `AD_CLICK`.
 - `AD_RENDITION_CHANGE`.
-- `BUFFER` only for HLS (see `OnMediaBufferStart` on [docs](https://docs.theplatform.com/help/player-pdkevent-reference)).
+- `BUFFER` only available for HLS (see `OnMediaBufferStart` on [docs](https://docs.theplatform.com/help/player-pdkevent-reference)).
