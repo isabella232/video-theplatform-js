@@ -47,6 +47,7 @@ export default class ThePlatformAdsTracker extends nrvideo.VideoTracker {
     this.player.addEventListener('OnMediaLoadStart', this.onMediaLoadStart.bind(this), this.scope)
     this.player.addEventListener('OnMediaError', this.onMediaError.bind(this), this.scope)
     this.player.addEventListener('OnMediaStart', this.onMediaStart.bind(this), this.scope)
+    this.player.addEventListener('OnMediaEnd', this.onMediaEnd.bind(this), this.scope)
     this.player.addEventListener('OnMediaPlaying', this.onMediaPlaying.bind(this), this.scope)
     this.player.addEventListener('OnMediaPause', this.onMediaPause.bind(this), this.scope)
     this.player.addEventListener('OnMediaUnpause', this.onMediaUnpause.bind(this), this.scope)

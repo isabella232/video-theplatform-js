@@ -2,10 +2,12 @@
 
 ## Unreleased
 
-## [0.1.2] - 2017/09/28
+## [0.1.3] - 2017/09/28
 ### Fix
 - Fix `adTtile` not being fetch for Freewheel ads.
 - Fix `sample.html` file to include ad plugins.
+- Fix `buffer` not being fired in some cases.
+- Fix `AD_END` not being fired in some cases.
 
 ## [0.1.2] - 2017/09/26
 ### Fix

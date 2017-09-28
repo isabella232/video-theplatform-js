@@ -96,6 +96,10 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
     this.player.addEventListener('OnMediaError', this.onMediaError.bind(this), this.scope)
     this.player.addEventListener('OnMediaSeek', this.onMediaSeek.bind(this), this.scope)
     this.player.addEventListener('OnMute', this.onMute.bind(this), this.scope)
+    this.player.addEventListener('OnMediaBufferStart', this.onMediaBufferStart.bind(this),
+      this.scope)
+    this.player.addEventListener('OnMediaBufferComplete', this.onMediaBufferComplete.bind(this),
+      this.scope)
   }
 
   unregisterListeners () {
@@ -110,6 +114,8 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
     this.player.removeEventListener('OnMediaError', this.onMediaError, this.scope)
     this.player.removeEventListener('OnMediaSeek', this.onMediaSeek, this.scope)
     this.player.removeEventListener('OnMute', this.onMute, this.scope)
+    this.player.removeEventListener('OnMediaBufferStart', this.onMediaBufferStart, this.scope)
+    this.player.removeEventListener('OnMediaBufferComplete', this.onMediaBufferComplete, this.scope)
   }
 
   onPlayerLoaded (e) {
@@ -181,6 +187,14 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
 
   onMute (e) {
     this.muted = e.data
+  }
+
+  onMediaBufferStart (e) {
+    this.sendBufferStart()
+  }
+
+  onMediaBufferComplete (e) {
+    this.sendBufferEnd()
   }
 }
 
