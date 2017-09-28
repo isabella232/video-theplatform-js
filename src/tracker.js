@@ -190,11 +190,15 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
   }
 
   onMediaBufferStart (e) {
-    this.sendBufferStart()
+    if (!e.data.baseClip.isAd) { // only if content
+      this.sendBufferStart()
+    }
   }
 
   onMediaBufferComplete (e) {
-    this.sendBufferEnd()
+    if (!e.data.baseClip.isAd) { // only if content
+      this.sendBufferEnd()
+    }
   }
 }
 

@@ -51,6 +51,10 @@ export default class ThePlatformAdsTracker extends nrvideo.VideoTracker {
     this.player.addEventListener('OnMediaPlaying', this.onMediaPlaying.bind(this), this.scope)
     this.player.addEventListener('OnMediaPause', this.onMediaPause.bind(this), this.scope)
     this.player.addEventListener('OnMediaUnpause', this.onMediaUnpause.bind(this), this.scope)
+    this.player.addEventListener('OnMediaBufferStart', this.onMediaBufferStart.bind(this),
+      this.scope)
+    this.player.addEventListener('OnMediaBufferComplete', this.onMediaBufferComplete.bind(this),
+      this.scope)
   }
 
   unregisterListeners () {
@@ -61,6 +65,8 @@ export default class ThePlatformAdsTracker extends nrvideo.VideoTracker {
     this.player.removeEventListener('OnMediaPlaying', this.onMediaPlaying, this.scope)
     this.player.removeEventListener('OnMediaPause', this.onMediaPause, this.scope)
     this.player.removeEventListener('OnMediaUnpause', this.onMediaUnpause, this.scope)
+    this.player.removeEventListener('OnMediaBufferStart', this.onMediaBufferStart, this.scope)
+    this.player.removeEventListener('OnMediaBufferComplete', this.onMediaBufferComplete, this.scope)
   }
 
   onMediaLoadStart (e) {
@@ -108,6 +114,7 @@ export default class ThePlatformAdsTracker extends nrvideo.VideoTracker {
     if (this.state.isRequested) { // ads
       this.playhead = e.data.currentTimeAggregate || e.data.currentTime
       this.sendStart()
+      this.sendBufferEnd()
     }
   }
 
@@ -117,5 +124,17 @@ export default class ThePlatformAdsTracker extends nrvideo.VideoTracker {
 
   onMediaUnpause (e) {
     this.sendResume()
+  }
+
+  onMediaBufferStart (e) {
+    if (e.data.baseClip.isAd) { // only if Ad
+      this.sendBufferStart()
+    }
+  }
+
+  onMediaBufferComplete (e) {
+    if (e.data.baseClip.isAd) { // only if Ad
+      this.sendBufferEnd()
+    }
   }
 }
