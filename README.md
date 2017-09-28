@@ -39,3 +39,10 @@ or
 ```
 tp:plugin0="type=tpplayer|URL=../dist/newrelic-video-theplatform.min.js|priority=1|scope=SCOPE"
 ```
+
+## Known Limitations
+Due to the information exposed by player provider, this tracker may not be able to report:
+- `AD_QUARTILE`.
+- `AD_CLICK`.
+- `AD_RENDITION_CHANGE`.
+- `BUFFER` only for HLS (see `OnMediaBufferStart` on [docs](https://docs.theplatform.com/help/player-pdkevent-reference)).
