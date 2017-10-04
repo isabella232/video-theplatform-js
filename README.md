@@ -34,7 +34,7 @@ nrvideo.Core.addTracker(new nrvideo.ThePlatformTracker(player, {
 }))
 ```
 
-or
+or you can use theplatform plugin space:
 
 ```
 tp:plugin0="type=tpplayer|URL=../dist/newrelic-video-theplatform.min.js|priority=1|scope=SCOPE"
