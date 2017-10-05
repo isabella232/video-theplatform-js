@@ -141,7 +141,7 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
     if (!e.data.baseClip.isAd) { // only if content
       this.live = (e.data.baseClip.expression === 'nonstop')
       this.src = e.data.baseClip.URL
-      this.duration = e.data.baseClip.trueLength / 1000
+      this.duration = e.data.baseClip.trueLength
       this.renditionBitrate = e.data.baseClip.bitrate
       this.renditionHeight = e.data.baseClip.height
       this.renditionWidth = e.data.baseClip.width
