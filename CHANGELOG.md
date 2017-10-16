@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.1.5] - 2017/10/16
+### Add
+- Add `OnReleaseError` listener to fire errors.
+
+### Change
+- Added `initAdTracker` intermediate function to allow extension.
+
 ## [0.1.4] - 2017/10/05
 ### Fix
 - Fix `contentDuration` being sent in sec instead of ms.

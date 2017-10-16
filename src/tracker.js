@@ -72,8 +72,12 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
     return this.muted
   }
 
-  registerListeners () {
+  initAdTracker () {
     this.setAdsTracker(new ThePlatformAdsTracker(this.player))
+  }
+
+  registerListeners () {
+    this.initAdTracker()
 
     nrvideo.Log.debugCommonVideoEvents(this.player, [
       null, 'OnMediaPause', 'OnMediaUnpause', 'OnClipInfoLoaded', 'OnMediaBuffering', 'OnMediaEnd',
@@ -94,6 +98,7 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
     this.player.addEventListener('OnMediaPause', this.onMediaPause.bind(this), this.scope)
     this.player.addEventListener('OnMediaUnpause', this.onMediaUnpause.bind(this), this.scope)
     this.player.addEventListener('OnMediaError', this.onMediaError.bind(this), this.scope)
+    this.player.addEventListener('OnReleaseError', this.onReleaseError.bind(this), this.scope)
     this.player.addEventListener('OnMediaSeek', this.onMediaSeek.bind(this), this.scope)
     this.player.addEventListener('OnMute', this.onMute.bind(this), this.scope)
     this.player.addEventListener('OnMediaBufferStart', this.onMediaBufferStart.bind(this),
@@ -112,6 +117,7 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
     this.player.removeEventListener('OnMediaPause', this.onMediaPause, this.scope)
     this.player.removeEventListener('OnMediaUnpause', this.onMediaUnpause, this.scope)
     this.player.removeEventListener('OnMediaError', this.onMediaError, this.scope)
+    this.player.removeEventListener('OnReleaseError', this.onReleaseError, this.scope)
     this.player.removeEventListener('OnMediaSeek', this.onMediaSeek, this.scope)
     this.player.removeEventListener('OnMute', this.onMute, this.scope)
     this.player.removeEventListener('OnMediaBufferStart', this.onMediaBufferStart, this.scope)
@@ -179,6 +185,11 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
     } else { // Ad
       this.sendStart()
     }
+  }
+
+  onReleaseError (e) {
+    this.src = e.data.URL || e.data
+    this.sendError({ errorMessage: 'Release error' })
   }
 
   onMediaSeek (e) {
