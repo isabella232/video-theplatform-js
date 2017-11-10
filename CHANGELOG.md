@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## [0.2.0] - 2017/11/10
+### Add
+- Tracker will now support both `PDK5` and `PDK6`.
+
+### Lib
+- Updated for core lib `0.9+`.
+
+
 ## [0.1.5] - 2017/10/16
 ### Add
 - Add `OnReleaseError` listener to fire errors.
