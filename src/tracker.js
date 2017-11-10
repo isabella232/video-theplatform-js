@@ -1,5 +1,5 @@
 import * as nrvideo from 'newrelic-video-core'
-import {version} from '../package.json'
+import { version } from '../package.json'
 import ThePlatformAdsTracker from './ads'
 
 export default class ThePlatformTracker extends nrvideo.VideoTracker {
@@ -30,6 +30,10 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
 
   getTrackerVersion () {
     return version
+  }
+
+  getVideoId () {
+    return this.videoId
   }
 
   getPlayhead () {
@@ -83,7 +87,7 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
       null, 'OnMediaPause', 'OnMediaUnpause', 'OnClipInfoLoaded', 'OnMediaBuffering', 'OnMediaEnd',
       'OnMediaError', 'OnVersionError', 'OnMediaPlay', 'OnMediaSeek', 'OnMediaStart', 'OnMute',
       'OnMediaLoadStart', 'OnResetPlayer', 'OnReleaseEnd', 'OnReleaseStart', 'OnReleaseSelected',
-      'OnPlayerLoaded', 'OnMediaBufferStart', 'OnMediaBufferComplete'
+      'OnPlayerLoaded', 'OnMediaBufferStart', 'OnMediaBufferComplete', 'OnRenditionSwitched'
     ], function (e) {
       nrvideo.Log.debug('Event: ' + e.type, e)
     })
@@ -92,6 +96,7 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
     this.player.addEventListener('OnReleaseStart', this.onReleaseStart.bind(this), this.scope)
     this.player.addEventListener('OnReleaseEnd', this.onReleaseEnd.bind(this), this.scope)
     this.player.addEventListener('OnMediaLoadStart', this.onMediaLoadStart.bind(this), this.scope)
+    this.player.addEventListener('OnMediaStart', this.onMediaStart.bind(this), this.scope)
     this.player.addEventListener('OnRenditionSwitched', this.onRenditionSwitched.bind(this),
       this.scope)
     this.player.addEventListener('OnMediaPlaying', this.onMediaPlaying.bind(this), this.scope)
@@ -112,6 +117,7 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
     this.player.removeEventListener('OnReleaseStart', this.onReleaseStart, this.scope)
     this.player.removeEventListener('OnReleaseEnd', this.onReleaseEnd, this.scope)
     this.player.removeEventListener('OnMediaLoadStart', this.onMediaLoadStart, this.scope)
+    this.player.removeEventListener('OnMediaStart', this.onMediaStart, this.scope)
     this.player.removeEventListener('OnRenditionSwitched', this.onRenditionSwitched, this.scope)
     this.player.removeEventListener('OnMediaPlaying', this.onMediaPlaying, this.scope)
     this.player.removeEventListener('OnMediaPause', this.onMediaPause, this.scope)
@@ -144,13 +150,32 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
   }
 
   onMediaLoadStart (e) {
-    if (!e.data.baseClip.isAd) { // only if content
-      this.live = (e.data.baseClip.expression === 'nonstop')
-      this.src = e.data.baseClip.URL
-      this.duration = e.data.baseClip.trueLength
-      this.renditionBitrate = e.data.baseClip.bitrate
-      this.renditionHeight = e.data.baseClip.height
-      this.renditionWidth = e.data.baseClip.width
+    let clip = e.data
+    let bc = clip.baseClip || clip
+
+    if (!bc.isAd) { // only if content
+      this.live = (bc.expression === 'nonstop')
+      this.src = bc.URL
+      this.duration = bc.trueLength || bc.mediaLength
+      this.renditionBitrate = bc.bitrate
+      this.renditionHeight = bc.height
+      this.renditionWidth = bc.width
+      this.videoId = bc.contentID
+    }
+  }
+
+  onMediaStart (e) {
+    let clip = e.data
+    let bc = clip.baseClip || clip
+
+    if (!bc.isAd) { // only if content
+      this.live = (bc.expression === 'nonstop')
+      this.src = bc.URL
+      this.duration = bc.trueLength || bc.mediaLength
+      this.renditionBitrate = bc.bitrate
+      this.renditionHeight = bc.height
+      this.renditionWidth = bc.width
+      this.videoId = bc.contentID
     }
   }
 
@@ -177,8 +202,10 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
   }
 
   onMediaError (e) {
-    if (!e.data.clip.baseClip.isAd) { // content
-      this.src = e.data.clip.URL || e.data.baseClip.URL
+    let clip = e.data.clip
+    let bc = clip.baseClip || clip
+    if (!bc.isAd) { // content
+      this.src = e.data.clip.URL || bc.URL
       this.title = e.data.clip.title
       this.duration = e.data.clip.mediaLength
       this.sendError({ errorMessage: e.data.friendlyMessage, errorDetail: e.data.message })
@@ -201,13 +228,17 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
   }
 
   onMediaBufferStart (e) {
-    if (!e.data.baseClip.isAd) { // only if content
+    let clip = e.data
+    let bc = clip.baseClip || clip
+    if (!bc.isAd) { // only if content
       this.sendBufferStart()
     }
   }
 
   onMediaBufferComplete (e) {
-    if (!e.data.baseClip.isAd) { // only if content
+    let clip = e.data
+    let bc = clip.baseClip || clip
+    if (!bc.isAd) { // only if content
       this.sendBufferEnd()
     }
   }

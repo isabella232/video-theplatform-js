@@ -19,6 +19,10 @@ export default class ThePlatformAdsTracker extends nrvideo.VideoTracker {
     return version
   }
 
+  getVideoId () {
+    return this.videoId
+  }
+
   getDuration () {
     return this.duration
   }
@@ -70,12 +74,15 @@ export default class ThePlatformAdsTracker extends nrvideo.VideoTracker {
   }
 
   onMediaLoadStart (e) {
-    if (e.data.baseClip.isAd) { // ads
-      this.duration = e.data.baseClip.releaseLength
-      this.bitrate = e.data.baseClip.bitrate
-      this.src = e.data.baseClip.URL
-      this.title = e.data.baseClip.title || e.data.title
-      if (e.data.baseClip.isMid) {
+    let clip = e.data
+    let bc = clip.baseClip || clip
+    if (bc.isAd) { // ads
+      this.duration = bc.releaseLength
+      this.bitrate = bc.bitrate
+      this.src = bc.URL
+      this.title = bc.title || e.data.title
+      this.videoId = bc.contentID
+      if (bc.isMid) {
         this.position = nrvideo.Constants.AdPositions.MID
       } else {
         this.position = nrvideo.Constants.AdPositions.PRE
@@ -85,12 +92,15 @@ export default class ThePlatformAdsTracker extends nrvideo.VideoTracker {
   }
 
   onMediaStart (e) {
-    if (e.data.baseClip.isAd) { // ads
-      this.duration = e.data.baseClip.releaseLength
-      this.bitrate = e.data.baseClip.bitrate
-      this.src = e.data.baseClip.URL
-      this.title = e.data.baseClip.title || e.data.title
-      if (e.data.baseClip.isMid) {
+    let clip = e.data
+    let bc = clip.baseClip || clip
+    if (bc.isAd) { // ads
+      this.duration = bc.releaseLength
+      this.bitrate = bc.bitrate
+      this.src = bc.URL
+      this.title = bc.title || e.data.title
+      this.videoId = bc.contentID
+      if (bc.isMid) {
         this.position = nrvideo.Constants.AdPositions.MID
       } else {
         this.position = nrvideo.Constants.AdPositions.PRE
@@ -127,13 +137,17 @@ export default class ThePlatformAdsTracker extends nrvideo.VideoTracker {
   }
 
   onMediaBufferStart (e) {
-    if (e.data.baseClip.isAd) { // only if Ad
+    let clip = e.data
+    let bc = clip.baseClip || clip
+    if (bc.isAd) { // only if Ad
       this.sendBufferStart()
     }
   }
 
   onMediaBufferComplete (e) {
-    if (e.data.baseClip.isAd) { // only if Ad
+    let clip = e.data
+    let bc = clip.baseClip || clip
+    if (bc.isAd) { // only if Ad
       this.sendBufferEnd()
     }
   }
