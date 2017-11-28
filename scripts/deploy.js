@@ -94,16 +94,16 @@ function uploadFile (fileName, originPath, targetPath) {
 
   let isHtml = fileName.endsWith('.html')
 
-    // recurse if directory
+  // recurse if directory
   if (fs.lstatSync(filePath).isDirectory()) {
     uploadFolder(originPath + '/' + fileName, targetPath + fileName)
   } else {
-  // read file contents
+    // read file contents
     fs.readFile(filePath, (error, fileContent) => {
-    // if unable to read file contents, throw exception
+      // if unable to read file contents, throw exception
       if (error) { throw error }
 
-    // upload file to S3
+      // upload file to S3
       s3.putObject({
         ACL: 'public-read',
         Bucket: s3BucketName,
