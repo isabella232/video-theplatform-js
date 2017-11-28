@@ -94,9 +94,13 @@ function uploadFile (fileName, originPath, targetPath) {
 
   let isHtml = fileName.endsWith('.html')
 
+  // Add trailing '/'
+  if (targetPath[targetPath.length - 1] !== '/') targetPath += '/'
+  if (originPath[originPath.length - 1] !== '/') originPath += '/'
+
   // recurse if directory
   if (fs.lstatSync(filePath).isDirectory()) {
-    uploadFolder(originPath + '/' + fileName, targetPath + fileName)
+    uploadFolder(originPath + fileName, targetPath + fileName)
   } else {
     // read file contents
     fs.readFile(filePath, (error, fileContent) => {
