@@ -197,7 +197,10 @@ export default class ThePlatformTracker extends nrvideo.VideoTracker {
   }
 
   onRenditionSwitched (e) {
-    this.renditionBitrate = e.newRendition
+    let r = e.data.newRendition
+    if (this.renditionBitrate <= 0 && r.bitrate) this.renditionBitrate = r.bitrate
+    if (this.renditionHeight <= 0 && r.height) this.renditionHeight = r.height
+    if (this.renditionWidth <= 0 && r.width) this.renditionWidth = r.width
     this.sendRenditionChanged()
   }
 

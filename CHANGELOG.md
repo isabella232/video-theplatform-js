@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## [0.2.1] - 2017/12/11
+### Fix
+- Tracker now supports rendition switching propperly on ABR streams.
+
 ## [0.2.0] - 2017/11/10
 ### Add
 - Tracker will now support both `PDK5` and `PDK6`.
