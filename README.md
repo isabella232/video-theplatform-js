@@ -1,9 +1,9 @@
 [![Community Project header](https://github.com/newrelic/open-source-office/raw/master/examples/categories/images/Community_Project.png)](https://github.com/newrelic/open-source-office/blob/master/examples/categories/index.md#community-project)
 
-# New Relic The Platform Tracker
+# New Relic thePlatform JS Tracker
 
 
-The New Relic The Platform tracker instruments The Platform player.
+The New Relic thePlatform JS tracker instruments thePlatform HTML5 player.
 
 ## Build
 
