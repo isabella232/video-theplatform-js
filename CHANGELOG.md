@@ -1,6 +1,8 @@
 # CHANGELOG
 
-## Unreleased
+## [0.3.0] - 2020/05/04
+### Fix
+- Update dependencies to fix multiple vulnerabilities.
 
 ## [0.2.1] - 2017/12/11
 ### Fix
