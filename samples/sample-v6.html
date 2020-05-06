@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+        <!-- newrelic browser agent. REMEMBER TO REPLACE THIS SCRIPT WITH YOUR OWN BROWSER AGENT -->
+         <script type="text/javascript" src="agent.js"></script>
+      <title>Test Player</title>
+
+      <link rel="stylesheet" href="https://pdk.theplatform.com/pdk6/current/pdk/skins/smooth.css" />
+
+      <style type="text/css">
+         .tpPlayer
+         {
+            width:500px;
+            height:300px;
+         }
+      </style>
+
+      <link rel="alternate" href="http://link.theplatform.com/s/vwUEeC/media/F7Kp_b0_ukh8" type="application/smil+xml" />
+
+      <script type="text/javascript" src="http://pdk.theplatform.com/pdk6/current/pdk/player.js"></script>
+   </head>
+
+   <body>
+      <div 
+        id="player" class="tpPlayer"
+        tp:plugin0="type=tpplayer|URL=../dist/newrelic-video-theplatform.min.js|priority=1"
+      >  
+      </div>
+   </body>
+</html>
